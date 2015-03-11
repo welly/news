@@ -1,0 +1,22 @@
+AppBundle\Entity\Topic:
+  type: entity
+  table: topic
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    uid:
+      type: integer
+    title:
+      type: string
+      length: 100
+    created:
+      type: datetime
+    updated:
+      type: datetime
+    type:
+      type: string
+      length: 20
+    status:
+      type: boolean
