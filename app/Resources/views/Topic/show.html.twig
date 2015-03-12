@@ -1,0 +1,12 @@
+{# app/Resources/views/Topic/create.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ topic.title }} | News{% endblock %}
+
+{% block body %}
+<h2>{{ topic.title }}</h2>
+<div class="topic__body">
+  {{ topic.discussion.body }}
+</div>
+
+{% endblock %}

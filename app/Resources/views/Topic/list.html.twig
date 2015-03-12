@@ -1,0 +1,13 @@
+{# app/Resources/views/Topic/create.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}List topics{% endblock %}
+
+{% block body %}
+<ul>
+  {% for topic in topics %}
+  <li><a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a></li>
+  {% endfor %}
+</ul>
+
+{% endblock %}
