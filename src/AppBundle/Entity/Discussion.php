@@ -3,140 +3,147 @@
 namespace AppBundle\Entity;
 
 class Discussion {
-  protected $tid;
   protected $body;
   protected $created;
   protected $updated;
   protected $status;
+  private $id;
 
+  public function __construct() {
+    $this->created = new \Datetime();
+    $this->updated = new \Datetime();
+    $this->status = 1;
+  }
+
+
+  /**
+   * Get id
+   *
+   * @return integer
+   */
+  public function getId()
+  {
+      return $this->id;
+  }
+
+
+  /**
+   * Set body
+   *
+   * @param string $body
+   * @return Discussion
+   */
+  public function setBody($body)
+  {
+      $this->body = $body;
+
+      return $this;
+  }
+
+  /**
+   * Get body
+   *
+   * @return string
+   */
+  public function getBody()
+  {
+      return $this->body;
+  }
+
+  /**
+   * Set created
+   *
+   * @param \DateTime $created
+   * @return Discussion
+   */
+  public function setCreated($created)
+  {
+      $this->created = $created;
+
+      return $this;
+  }
+
+  /**
+   * Get created
+   *
+   * @return \DateTime
+   */
+  public function getCreated()
+  {
+      return $this->created;
+  }
+
+  /**
+   * Set updated
+   *
+   * @param \DateTime $updated
+   * @return Discussion
+   */
+  public function setUpdated($updated)
+  {
+      $this->updated = $updated;
+
+      return $this;
+  }
+
+  /**
+   * Get updated
+   *
+   * @return \DateTime
+   */
+  public function getUpdated()
+  {
+      return $this->updated;
+  }
+
+  /**
+   * Set status
+   *
+   * @param boolean $status
+   * @return Discussion
+   */
+  public function setStatus($status)
+  {
+      $this->status = $status;
+
+      return $this;
+  }
+
+  /**
+   * Get status
+   *
+   * @return boolean
+   */
+  public function getStatus()
+  {
+      return $this->status;
+  }
     /**
-     * @var integer
+     * @var \AppBundle\Entity\Topic
      */
-    private $id;
+    private $topic;
 
 
     /**
-     * Get id
+     * Set topic
      *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set tid
-     *
-     * @param integer $tid
+     * @param \AppBundle\Entity\Topic $topic
      * @return Discussion
      */
-    public function setTid($tid)
+    public function setTopic(\AppBundle\Entity\Topic $topic = null)
     {
-        $this->tid = $tid;
+        $this->topic = $topic;
 
         return $this;
     }
 
     /**
-     * Get tid
+     * Get topic
      *
-     * @return integer 
+     * @return \AppBundle\Entity\Topic
      */
-    public function getTid()
+    public function getTopic()
     {
-        return $this->tid;
-    }
-
-    /**
-     * Set body
-     *
-     * @param string $body
-     * @return Discussion
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * Get body
-     *
-     * @return string 
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     * @return Discussion
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime 
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     * @return Discussion
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime 
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * Set status
-     *
-     * @param boolean $status
-     * @return Discussion
-     */
-    public function setStatus($status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return boolean 
-     */
-    public function getStatus()
-    {
-        return $this->status;
+        return $this->topic;
     }
 }
