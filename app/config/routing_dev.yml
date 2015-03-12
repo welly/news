@@ -16,7 +16,3 @@ _errors:
 
 _main:
     resource: routing.yml
-
-topic:
-  resource: "@AppBundle/Controller"
-  type: annotation

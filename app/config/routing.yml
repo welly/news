@@ -5,3 +5,17 @@ app:
 _errors:
   resource: "@TwigBundle/Resources/config/routing/errors.xml"
   prefix:   /_error
+
+topic_list:
+  path: /
+  defaults: { _controller: AppBundle:Topic:list }
+
+
+topic_show:
+  path: /topic/show/{id}
+  defaults: { _controller: AppBundle:Topic:show }
+
+topic:
+  resource: "@AppBundle/Controller"
+  type: annotation
+  prefix: /topic
