@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Discussion;
 use AppBundle\Entity\Topic;
 use AppBundle\Form\Type\TopicType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -12,30 +13,73 @@ use Symfony\Component\HttpFoundation\Request;
 class TopicController extends Controller {
 
   /**
-   * @Route("/topic/create")
+   * @Route("/list")
+   */
+  public function listAction() {
+    $topics = $this->getDoctrine()
+      ->getRepository('AppBundle:Topic')
+      ->findAll();
+
+      if (!$topics) {
+          throw $this->createNotFoundException(
+            'No topics found'
+          );
+      }
+
+      return $this->render('Topic/list.html.twig', array('topics' => $topics));
+  }
+
+  /**
+   * @Route("/show/{id}")
+   */
+  public function showAction($id) {
+
+    $topic = $this->getDoctrine()
+      ->getRepository('AppBundle:Topic')
+      ->find($id);
+
+
+    if (!$topic) {
+      throw $this->createNotFoundException(
+        'No topic found for id ' . $id
+      );
+    }
+
+    return $this->render('Topic/show.html.twig', array('topic' => $topic));
+  }
+
+
+  /**
+   * @Route("/create")
    */
   public function createAction(Request $request) {
 
     $topic = new Topic();
-    // $topic->setTitle('Title of first topic');
-    // $topic->setType('discussion');
-    // $topic->setCreated(new \DateTime('2015-03-12 15:00'));
-    // $topic->setUpdated(new \DateTime());
 
     $form = $this->createForm(new TopicType(), $topic);
 
     $form->handleRequest($request);
 
     if ($form->isValid()) {
+
+      // $discussion = new Discussion();
+
       $topic = $form->getData();
       $topic->setUid(1);
       $topic->setStatus(1);
 
-      ladybug_dump($topic);
-
       $em = $this->getDoctrine()->getManager();
       $em->persist($topic);
       $em->flush();
+
+      ladybug_dump($topic);
+
+      // $discussion = $topic->getDiscussion();
+      // $discussion->setTid($topic->getId());
+
+      // $em->persist($discussion);
+      // $em->flush();
+
 
       $request->getSession()->getFlashBag()->add(
         'notice',
@@ -52,7 +96,7 @@ class TopicController extends Controller {
   }
 
   /**
-   * @Route("/topic/update/{id}")
+   * @Route("/update/{id}")
    */
   public function updateAction($id) {
 
