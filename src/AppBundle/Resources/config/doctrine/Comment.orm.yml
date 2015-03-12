@@ -5,6 +5,14 @@ AppBundle\Entity\Comment:
     id:
       type: integer
       generator: { strategy: AUTO }
+  manyToOne:
+    topic:
+      cascade: ['persist']
+      inversedBy: comments
+      joinColumn:
+        name: cid
+        referencedColumnName: id
+      targetEntity: Topic
   fields:
     uid:
       type: integer
