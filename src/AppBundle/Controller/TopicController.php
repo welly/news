@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class TopicController extends Controller {
 
   /**
-   * @Route("/list")
+   * @Route("/topic/list")
    */
   public function listAction() {
     $topics = $this->getDoctrine()
@@ -30,7 +30,7 @@ class TopicController extends Controller {
   }
 
   /**
-   * @Route("/show/{id}")
+   * @Route("/topic/show/{id}")
    */
   public function showAction($id) {
 
@@ -50,7 +50,7 @@ class TopicController extends Controller {
 
 
   /**
-   * @Route("/create")
+   * @Route("/topic/create")
    */
   public function createAction(Request $request) {
 
@@ -74,21 +74,12 @@ class TopicController extends Controller {
 
       ladybug_dump($topic);
 
-      // $discussion = $topic->getDiscussion();
-      // $discussion->setTid($topic->getId());
-
-      // $em->persist($discussion);
-      // $em->flush();
-
-
       $request->getSession()->getFlashBag()->add(
         'notice',
         'Your topic was saved!'
       );
     }
 
-    // return new Response('Created topic ' . $topic->getId());
-    //
     return $this->render('Topic/create.html.twig', array(
       'form' => $form->createView(),
     ));
@@ -96,7 +87,7 @@ class TopicController extends Controller {
   }
 
   /**
-   * @Route("/update/{id}")
+   * @Route("/topic/update/{id}")
    */
   public function updateAction($id) {
 

@@ -18,4 +18,3 @@ topic_show:
 topic:
   resource: "@AppBundle/Controller"
   type: annotation
-  prefix: /topic

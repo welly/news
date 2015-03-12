@@ -13,6 +13,10 @@ AppBundle\Entity\Topic:
         name: did
         referencedColumnName: id
       targetEntity: Discussion
+  oneToMany:
+    comments:
+      targetEntity: Comment
+      mappedBy: topic
   fields:
     title:
       type: string
