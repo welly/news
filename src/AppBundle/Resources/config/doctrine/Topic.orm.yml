@@ -5,12 +5,22 @@ AppBundle\Entity\Topic:
     id:
       type: integer
       generator: { strategy: AUTO }
+  oneToOne:
+    discussion:
+      cascade: ['persist']
+      inversedBy: topic
+      joinColumn:
+        name: did
+        referencedColumnName: id
+      targetEntity: Discussion
   fields:
-    uid:
-      type: integer
     title:
       type: string
       length: 100
+    uid:
+      type: integer
+    did:
+      type: integer
     created:
       type: datetime
     updated:

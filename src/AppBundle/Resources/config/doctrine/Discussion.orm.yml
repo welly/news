@@ -5,12 +5,13 @@ AppBundle\Entity\Discussion:
     id:
       type: integer
       generator: { strategy: AUTO }
+  oneToOne:
+    topic:
+      targetEntity: Topic
+      mappedBy: discussion
   fields:
-    tid:
-      type: integer
     body:
-      type: string
-      length: 100
+      type: text
     created:
       type: datetime
     updated:
