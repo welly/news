@@ -1,0 +1,12 @@
+<?php
+
+namespace AppBundle\Entity;
+
+class Discussion {
+  protected $tid;
+  protected $body;
+  protected $created;
+  protected $updated;
+  protected $status;
+
+}

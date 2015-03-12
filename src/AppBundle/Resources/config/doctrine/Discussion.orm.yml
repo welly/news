@@ -1,0 +1,19 @@
+AppBundle\Entity\Discussion:
+  type: entity
+  table: discussion
+  id:
+    id:
+      type: integer
+      generator: { strategy: AUTO }
+  fields:
+    tid:
+      type: integer
+    body:
+      type: string
+      length: 100
+    created:
+      type: datetime
+    updated:
+      type: datetime
+    status:
+      type: boolean

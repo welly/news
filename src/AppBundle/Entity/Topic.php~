@@ -2,20 +2,14 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 class Topic {
   protected $title;
   protected $created;
   protected $updated;
   protected $type;
   protected $status;
-  /**
-   * @Assert\Type(type="AppBundle\Entity\Discussion")
-   * @Assert\Valid()
-   */
-  protected $discussion;
   protected $uid;
+  protected $discussion;
 
   public function __construct() {
     $this->created = new \Datetime();
@@ -174,15 +168,5 @@ class Topic {
     public function getStatus()
     {
         return $this->status;
-    }
-
-    public function getDiscussion()
-    {
-        return $this->discussion;
-    }
-
-    public function setDiscussion(Discussion $discussion = null)
-    {
-        $this->discussion = $discussion;
     }
 }

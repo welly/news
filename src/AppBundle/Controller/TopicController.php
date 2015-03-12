@@ -3,31 +3,51 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Topic;
+use AppBundle\Form\Type\TopicType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class TopicController extends Controller {
 
   /**
    * @Route("/topic/create")
    */
-  public function createAction() {
+  public function createAction(Request $request) {
 
     $topic = new Topic();
-    $topic->setTitle('Title of first topic');
-    $topic->setUid(1);
-    $topic->setType('discussion');
-    $topic->setCreated(new \DateTime('2015-03-12 15:00'));
-    $topic->setUpdated(new \DateTime());
-    $topic->setStatus(1);
+    // $topic->setTitle('Title of first topic');
+    // $topic->setType('discussion');
+    // $topic->setCreated(new \DateTime('2015-03-12 15:00'));
+    // $topic->setUpdated(new \DateTime());
 
-    $em = $this->getDoctrine()->getManager();
+    $form = $this->createForm(new TopicType(), $topic);
 
-    $em->persist($topic);
-    $em->flush();
+    $form->handleRequest($request);
 
-    return new Response('Created topic ' . $topic->getId());
+    if ($form->isValid()) {
+      $topic = $form->getData();
+      $topic->setUid(1);
+      $topic->setStatus(1);
+
+      ladybug_dump($topic);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($topic);
+      $em->flush();
+
+      $request->getSession()->getFlashBag()->add(
+        'notice',
+        'Your topic was saved!'
+      );
+    }
+
+    // return new Response('Created topic ' . $topic->getId());
+    //
+    return $this->render('Topic/create.html.twig', array(
+      'form' => $form->createView(),
+    ));
 
   }
 
