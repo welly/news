@@ -6,10 +6,13 @@ _errors:
   resource: "@TwigBundle/Resources/config/routing/errors.xml"
   prefix:   /_error
 
+comment_create:
+  path: /comment/create/{topic}
+  defaults: { _controller: AppBundle:Comment:create }
+
 topic_list:
   path: /
   defaults: { _controller: AppBundle:Topic:list }
-
 
 topic_show:
   path: /topic/show/{id}

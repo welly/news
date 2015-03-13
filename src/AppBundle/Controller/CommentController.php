@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Topic;
+use AppBundle\Form\Type\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommentController extends Controller {
@@ -30,34 +32,37 @@ class CommentController extends Controller {
   }
 
   /**
-   * @Route("/comment/create/{tid}")
+   * @Route("/comment/create")
    */
-  public function createAction(Request $request, $tid) {
+  public function createAction(Request $request, Topic $topic) {
 
     $comment = new Comment();
 
-    $form = $this->createForm(new CommentType(), $comment);
+    $form = $this->createForm(new CommentType(), $comment,
+      array(
+        'action' => $this->generateUrl('comment_create', array('topic' => $topic->getId())),
+      )
+    );
 
     $form->handleRequest($request);
 
     if ($form->isValid()) {
 
-      // $discussion = new Discussion();
-
       $comment = $form->getData();
-      // $topic->setUid(1);
-      // $topic->setStatus(1);
-
-      // $em = $this->getDoctrine()->getManager();
-      // $em->persist($topic);
-      // $em->flush();
+      $comment->setTopic($topic);
 
       ladybug_dump($comment);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->persist($comment);
+      $em->flush();
 
       $request->getSession()->getFlashBag()->add(
         'notice',
         'Your comment was saved!'
       );
+
+      return new RedirectResponse($this->generateUrl('topic_show', array('id' => $comment->getTopic()->getId())));
     }
 
     return $this->render('Comment/create.html.twig', array(

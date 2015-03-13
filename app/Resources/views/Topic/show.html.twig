@@ -9,4 +9,12 @@
   {{ topic.discussion.body }}
 </div>
 
+{{ render(controller('AppBundle:Comment:create', {'topic': topic})) }}
+
+<ul>
+{% for comment in topic.comments %}
+  <li>{{ comment.body }}</li>
+{% endfor %}
+</ul>
+
 {% endblock %}

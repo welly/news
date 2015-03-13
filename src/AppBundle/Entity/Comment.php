@@ -2,200 +2,158 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="comment")
+ */
 class Comment {
 
-  protected $uid;
-  protected $tid;
-  protected $pid;
+  // private $user;
+
+  /**
+   * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
+
+  /**
+   * @ORM\Column(type="text")
+   */
   protected $body;
+
+  /**
+   * @ORM\Column(type="datetime")
+   */
   protected $created;
+
+  /**
+   * @ORM\Column(type="datetime")
+   */
   protected $updated;
+
+  /**
+   * @ORM\Column(type="boolean")
+   */
   protected $status;
 
-  private $id;
+  /**
+   * @ORM\ManyToOne(targetEntity="Topic", inversedBy="comments")
+   * @ORM\JoinColumn(name="topic_id", referencedColumnName="id")
+   * @var [type]
+   */
+  protected $topic;
 
   public function __construct() {
     $this->created = new \Datetime();
     $this->updated = new \Datetime();
-    $this->status = 1;
+    $this->status = TRUE;
   }
 
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-      return $this->id;
-  }
-
-  /**
-   * Set uid
-   *
-   * @param integer $uid
-   * @return Comment
-   */
-  public function setUid($uid)
-  {
-      $this->uid = $uid;
-
-      return $this;
-  }
-
-  /**
-   * Get uid
-   *
-   * @return integer
-   */
-  public function getUid()
-  {
-      return $this->uid;
-  }
-
-  /**
-   * Set tid
-   *
-   * @param integer $tid
-   * @return Comment
-   */
-  public function setTid($tid)
-  {
-      $this->tid = $tid;
-
-      return $this;
-  }
-
-  /**
-   * Get tid
-   *
-   * @return integer
-   */
-  public function getTid()
-  {
-      return $this->tid;
-  }
-
-  /**
-   * Set pid
-   *
-   * @param integer $pid
-   * @return Comment
-   */
-  public function setPid($pid)
-  {
-      $this->pid = $pid;
-
-      return $this;
-  }
-
-  /**
-   * Get pid
-   *
-   * @return integer
-   */
-  public function getPid()
-  {
-      return $this->pid;
-  }
-
-  /**
-   * Set body
-   *
-   * @param string $body
-   * @return Comment
-   */
-  public function setBody($body)
-  {
-      $this->body = $body;
-
-      return $this;
-  }
-
-  /**
-   * Get body
-   *
-   * @return string
-   */
-  public function getBody()
-  {
-      return $this->body;
-  }
-
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   * @return Comment
-   */
-  public function setCreated($created)
-  {
-      $this->created = $created;
-
-      return $this;
-  }
-
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated()
-  {
-      return $this->created;
-  }
-
-  /**
-   * Set updated
-   *
-   * @param \DateTime $updated
-   * @return Comment
-   */
-  public function setUpdated($updated)
-  {
-      $this->updated = $updated;
-
-      return $this;
-  }
-
-  /**
-   * Get updated
-   *
-   * @return \DateTime
-   */
-  public function getUpdated()
-  {
-      return $this->updated;
-  }
-
-  /**
-   * Set status
-   *
-   * @param boolean $status
-   * @return Comment
-   */
-  public function setStatus($status)
-  {
-      $this->status = $status;
-
-      return $this;
-  }
-
-  /**
-   * Get status
-   *
-   * @return boolean
-   */
-  public function getStatus()
-  {
-      return $this->status;
-  }
     /**
-     * @var \AppBundle\Entity\Topic
+     * Get id
+     *
+     * @return integer
      */
-    private $topic;
+    public function getId()
+    {
+        return $this->id;
+    }
 
+    /**
+     * Set body
+     *
+     * @param string $body
+     * @return Comment
+     */
+    public function setBody($body)
+    {
+        $this->body = $body;
+
+        return $this;
+    }
+
+    /**
+     * Get body
+     *
+     * @return string
+     */
+    public function getBody()
+    {
+        return $this->body;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Comment
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Comment
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return Comment
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
     /**
      * Set topic

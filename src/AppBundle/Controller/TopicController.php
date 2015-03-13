@@ -62,17 +62,11 @@ class TopicController extends Controller {
 
     if ($form->isValid()) {
 
-      // $discussion = new Discussion();
-
       $topic = $form->getData();
-      $topic->setUid(1);
-      $topic->setStatus(1);
 
       $em = $this->getDoctrine()->getManager();
       $em->persist($topic);
       $em->flush();
-
-      ladybug_dump($topic);
 
       $request->getSession()->getFlashBag()->add(
         'notice',

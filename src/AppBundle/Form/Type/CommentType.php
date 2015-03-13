@@ -8,8 +8,12 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CommentType extends AbstractType {
 
-  public function buildForm(FormBuilderInterface $builder, array $option) {
-    $builder->add('body');
+  public function buildForm(FormBuilderInterface $builder, array $options) {
+    $builder
+      ->setAction($options['action'])
+      ->add('body')
+      ->add('topic', 'hidden')
+      ->add('save', 'submit', array('label' => 'Add comment'));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver) {
